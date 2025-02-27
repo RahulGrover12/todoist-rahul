@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Modal, Form, Input, Select, Switch, Flex } from "antd";
+import { Modal, Form, Input, Select, Switch, Flex, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import colorsData from "../../colors.json";
 import { getApi } from "../api/Api";
@@ -29,12 +29,14 @@ const ProjectModal = ({
     try {
       if (operation === "Add") {
         const resp = await api.addProject(values);
+        message.success("Project added successfully");
         console.log("Project Added..", resp);
         handleProjectAdd(resp);
       } else {
         updateProjectInTodoist(values);
       }
     } catch (error) {
+      message.error("Project failed to add");
       console.log(error.message);
     }
   };
