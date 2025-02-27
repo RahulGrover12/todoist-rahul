@@ -51,17 +51,17 @@ export const ProjectsContextProvider = ({ children }) => {
     );
   };
 
-  const value = {
-    projects,
-    loading,
-    hasError,
-    handleProjectAdd,
-    handleEditProject,
-    handleDeleteProject,
-  };
-
   return (
-    <ProjectsContext.Provider value={value}>
+    <ProjectsContext.Provider
+      value={{
+        projects,
+        loading,
+        hasError,
+        handleProjectAdd,
+        handleEditProject,
+        handleDeleteProject,
+      }}
+    >
       {children}
     </ProjectsContext.Provider>
   );
