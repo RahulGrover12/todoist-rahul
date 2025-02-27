@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import Task from "./Task";
+import { TasksContext } from "../contexts/TasksContext";
 
-const TaskList = ({ tasks, handleDeleteTask, handleUpdateTask }) => {
+const TaskList = ({ tasks }) => {
+  const { handleDeleteTask, handleUpdateTask } = useContext(TasksContext);
   return (
     <div className="flex flex-col gap-2">
       {tasks.length > 0 ? (
