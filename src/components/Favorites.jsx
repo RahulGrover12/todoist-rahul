@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
-import ProjectList from "./ProjectList";
+import ProjectList from "./DropDown";
 import { ProjectsContext } from "../contexts/ProjectsContext";
 
 const Favorites = () => {
