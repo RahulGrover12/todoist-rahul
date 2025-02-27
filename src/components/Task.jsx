@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Checkbox } from "antd";
+import { Checkbox, message } from "antd";
 import { getApi } from "../api/Api";
 import { LoadingOutlined, EditOutlined } from "@ant-design/icons";
 import UpdateTask from "./UpdateTask";
@@ -29,8 +29,10 @@ const Task = ({ values }) => {
       const isSuccess = await api.deleteTask(task.id);
       if (isSuccess) {
         handleDeleteTask(task.id);
+        message.success("Task Completed successfully");
       }
     } catch (error) {
+      message.success("Failed to delete Task");
       console.log(error.message);
     } finally {
       setLoading(false);
