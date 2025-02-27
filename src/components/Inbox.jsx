@@ -6,13 +6,12 @@ import { PlusOutlined } from "@ant-design/icons";
 import AddNewTask from "./AddNewTask";
 
 const Inbox = () => {
-  const { tasks, loading, hasError, handleDeleteTask, handleUpdateTask } =
-    useContext(TasksContext);
+  const { tasks, loading, hasError } = useContext(TasksContext);
   const { projects } = useContext(ProjectsContext);
 
   const [isAddTaskClicked, setIsAddTaskClicked] = useState(false);
-  const handleAddTaskClicked = (clickedEvent) => {
-    setIsAddTaskClicked(clickedEvent);
+  const handleAddTaskClicked = (e) => {
+    setIsAddTaskClicked(e);
   };
 
   const handleAddTask = (newTask) => {
@@ -45,11 +44,7 @@ const Inbox = () => {
       <h1 className="text-2xl font-bold mb-4">Inbox</h1>
 
       {inboxTasks.length > 0 ? (
-        <TaskList
-          tasks={inboxTasks}
-          handleDeleteTask={handleDeleteTask}
-          handleUpdateTask={handleUpdateTask}
-        />
+        <TaskList tasks={inboxTasks} />
       ) : (
         <p className="text-gray-400 text-center">No tasks in Inbox</p>
       )}
