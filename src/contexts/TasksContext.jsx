@@ -3,18 +3,12 @@
 import { useState, createContext, useEffect } from "react";
 import { getApi } from "../api/Api";
 
-const initialState = {
-  tasks: [],
-  hasError: false,
-  loading: true,
-};
-
 export const TasksContext = createContext();
 
 export const TasksProvider = ({ children }) => {
-  const [tasks, setTasks] = useState(initialState.tasks);
-  const [hasError, setHasError] = useState(initialState.hasError);
-  const [loading, setLoading] = useState(initialState.loading);
+  const [tasks, setTasks] = useState([]);
+  const [hasError, setHasError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const api = getApi();
 
