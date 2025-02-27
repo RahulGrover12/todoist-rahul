@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Form, Button, DatePicker, Select, Input } from "antd";
+import { Form, Button, DatePicker, Select, Input, message } from "antd";
 import { ProjectsContext } from "../contexts/ProjectsContext";
 import { getApi } from "../api/Api";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -33,6 +33,7 @@ const UpdateTask = ({ values }) => {
       if (resp) {
         handleUpdateTask({ ...task, ...taskData });
         handleEditOnClick(false);
+        message.success("Task Edited successfully");
       }
     } catch (error) {
       setError(error);
