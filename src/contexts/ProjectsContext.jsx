@@ -2,18 +2,12 @@
 import { useState, createContext, useEffect } from "react";
 import { getApi } from "../api/Api";
 
-const initialState = {
-  projects: [],
-  hasError: false,
-  loading: true,
-};
-
 export const ProjectsContext = createContext();
 
 export const ProjectsContextProvider = ({ children }) => {
-  const [projects, setProjects] = useState(initialState.projects);
-  const [hasError, setHasError] = useState(initialState.hasError);
-  const [loading, setLoading] = useState(initialState.loading);
+  const [projects, setProjects] = useState([]);
+  const [hasError, setHasError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const api = getApi();
 
