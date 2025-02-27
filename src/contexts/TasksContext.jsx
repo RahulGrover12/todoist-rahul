@@ -21,7 +21,7 @@ export const TasksProvider = ({ children }) => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const resp = await api.getTasks(); // Fetch all tasks
+        const resp = await api.getTasks();
         setTasks(resp);
         setLoading(false);
       } catch (error) {
@@ -43,15 +43,11 @@ export const TasksProvider = ({ children }) => {
     );
   };
 
-  const value = {
-    tasks,
-    loading,
-    hasError,
-    handleDeleteTask,
-    handleUpdateTask,
-  };
-
   return (
-    <TasksContext.Provider value={value}>{children}</TasksContext.Provider>
+    <TasksContext.Provider
+      value={{ tasks, loading, hasError, handleDeleteTask, handleUpdateTask }}
+    >
+      {children}
+    </TasksContext.Provider>
   );
 };
