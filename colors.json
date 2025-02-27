@@ -1,0 +1,24 @@
+{
+  "colors": [
+    { "colorName": "berry_red", "colorCode": "#b8256f" },
+    { "colorName": "red", "colorCode": "#db4035" },
+    { "colorName": "orange", "colorCode": "#ff9933" },
+    { "colorName": "yellow", "colorCode": "#fad000" },
+    { "colorName": "olive_green", "colorCode": "#afb83b" },
+    { "colorName": "lime_green", "colorCode": "#7ecc49" },
+    { "colorName": "green", "colorCode": "#299438" },
+    { "colorName": "mint_green", "colorCode": "#6accbc" },
+    { "colorName": "teal", "colorCode": "#158fad" },
+    { "colorName": "sky_blue", "colorCode": "#14aaf5" },
+    { "colorName": "light_blue", "colorCode": "#96c3eb" },
+    { "colorName": "blue", "colorCode": "#4073ff" },
+    { "colorName": "grape", "colorCode": "#884dff" },
+    { "colorName": "violet", "colorCode": "#af38eb" },
+    { "colorName": "lavender", "colorCode": "#eb96eb" },
+    { "colorName": "magenta", "colorCode": "#e05194" },
+    { "colorName": "salmon", "colorCode": "#ff8d85" },
+    { "colorName": "charcoal", "colorCode": "#808080" },
+    { "colorName": "grey", "colorCode": "#b8b8b8" },
+    { "colorName": "taupe", "colorCode": "#ccac93" }
+  ]
+}
