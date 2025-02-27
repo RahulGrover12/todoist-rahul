@@ -2,9 +2,9 @@ import { Flex } from "antd";
 import sidebarImage from "../assets/images/sidebar.png";
 import { Link, useLocation } from "react-router-dom";
 
-const ContentHeader = ({ isMoveLeft, setIsMoveLeft }) => {
+const ContentHeader = ({ expand, setExpand }) => {
   const handleSliderClick = () => {
-    setIsMoveLeft(!isMoveLeft);
+    setExpand(!expand);
   };
   const location = useLocation();
   const inboxPage = location.pathname === "/inbox";
@@ -14,13 +14,13 @@ const ContentHeader = ({ isMoveLeft, setIsMoveLeft }) => {
       gap={10}
       align="center"
       className={`p-2 transform transition-transform ${
-        isMoveLeft && "absolute left-2"
+        expand && "absolute left-2"
       }`}
     >
       <div
         onClick={handleSliderClick}
         className={`p-2 cursor-pointer hover:bg-gray-200 rounded-lg ${
-          !isMoveLeft && "hidden"
+          !expand && "hidden"
         }`}
       >
         <img className="h-[25px]" src={sidebarImage} alt="sidebar" />
