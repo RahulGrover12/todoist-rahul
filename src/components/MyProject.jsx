@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { DownOutlined } from "@ant-design/icons";
 import ProjectModal from "./ProjectModal";
-import ProjectList from "./ProjectList";
+import ProjectList from "./DropDown";
 import { ProjectsContext } from "../contexts/ProjectsContext";
 
 const MyProject = ({ callingFrom }) => {
