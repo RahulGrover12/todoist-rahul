@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Modal, Form, Input, Select, DatePicker } from "antd";
+import { Modal, Form, Input, Select, DatePicker, message } from "antd";
 import { ProjectsContext } from "../contexts/ProjectsContext";
 import { getApi } from "../api/Api";
 
@@ -13,6 +13,7 @@ const AddNewTask = ({ values }) => {
   const currentProject = projects.find(
     (project) => project.id === splitParam[1]
   );
+
   const [selectedProject, setSelectedProject] = useState(splitParam[1]);
 
   const onFinish = async (formValues) => {
@@ -21,12 +22,13 @@ const AddNewTask = ({ values }) => {
     const taskData = {
       content: taskName,
       description: description || "",
-      dueDate: dueDate ? dueDate.format("YYYY-MM-DD") : null,
+      dueDate: dueDate || null,
       projectId: selectedProject,
     };
 
     try {
       const response = await api.addTask(taskData);
+      message.success("Task added successfully");
       console.log("Task added:", response);
       handleAddTaskClicked(false);
       if (response) {
@@ -34,6 +36,7 @@ const AddNewTask = ({ values }) => {
       }
     } catch (error) {
       console.error("Error adding task:", error);
+      message.error("Failed to add task");
     }
   };
 
@@ -57,7 +60,7 @@ const AddNewTask = ({ values }) => {
         <Form
           form={form}
           onFinish={onFinish}
-          layout="vertical"
+          layout="horizontal"
           initialValues={{
             taskName: "",
             description: "",
@@ -70,7 +73,7 @@ const AddNewTask = ({ values }) => {
             label={<p className="font-bold">Task Name</p>}
             rules={[{ required: true, message: "Please enter task name" }]}
           >
-            <Input placeholder="Enter task name" />
+            <Input placeholder="Enter new task name" />
           </Form.Item>
 
           <Form.Item
