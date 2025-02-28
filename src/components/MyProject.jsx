@@ -5,7 +5,7 @@ import ProjectModal from "./ProjectModal";
 import { ProjectsContext } from "../contexts/ProjectsContext";
 import DropDown from "./DropDown";
 
-const MyProject = ({ callingFrom }) => {
+const MyProject = ({ from }) => {
   const [isHovered, setIsHovered] = useState(true);
   const [isToggle, setIsToggle] = useState(false);
   const { projects, loading, hasError } = useContext(ProjectsContext);
@@ -34,7 +34,7 @@ const MyProject = ({ callingFrom }) => {
         onMouseLeave={() => handleMyProjectHoverEvent(true)}
         className="p-2 pl-4 bg-[#f9dbc8] flex justify-between items-center text-gray-500 cursor-pointer hover:bg-[#f6c7aa] relative"
       >
-        {callingFrom === "home" ? (
+        {from === "home" ? (
           <p>Projects {projects.length - 1}</p>
         ) : (
           <Link to="/">
