@@ -21,7 +21,7 @@ const Home = () => {
         {location.pathname === "/inbox" && <Inbox />}
         {!param && location.pathname !== "/inbox" && (
           <>
-            <MyProject callingFrom={"home"} />
+            <MyProject from={"home"} />
           </>
         )}
         {param && <ProjectContents param={param} />}
