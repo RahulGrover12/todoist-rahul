@@ -8,6 +8,7 @@ const ContentHeader = ({ expand, setExpand }) => {
   };
   const location = useLocation();
   const inboxPage = location.pathname === "/inbox";
+  const todayPage = location.pathname === "/today";
 
   return (
     <Flex
@@ -25,7 +26,7 @@ const ContentHeader = ({ expand, setExpand }) => {
       >
         <img className="h-[25px]" src={sidebarImage} alt="sidebar" />
       </div>
-      {!inboxPage && (
+      {!inboxPage && !todayPage && (
         <Flex>
           <Link to="/">
             <p className="p-1 font-bold hover:bg-gray-200 rounded-lg cursor-pointer">
