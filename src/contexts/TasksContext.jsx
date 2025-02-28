@@ -27,6 +27,10 @@ export const TasksProvider = ({ children }) => {
     fetchTasks();
   }, []);
 
+  const handleAddTask = (newTask) => {
+    setTasks((prevTasks) => [...prevTasks, newTask]);
+  };
+
   const handleDeleteTask = (taskId) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
   };
@@ -39,7 +43,15 @@ export const TasksProvider = ({ children }) => {
 
   return (
     <TasksContext.Provider
-      value={{ tasks, loading, hasError, handleDeleteTask, handleUpdateTask }}
+      value={{
+        setTasks,
+        tasks,
+        loading,
+        hasError,
+        handleDeleteTask,
+        handleUpdateTask,
+        handleAddTask,
+      }}
     >
       {children}
     </TasksContext.Provider>
