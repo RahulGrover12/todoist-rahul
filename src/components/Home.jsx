@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Layout } from "antd";
 const { Content } = Layout;
-import SliderHeader from "./SliderHeader";
+import SideBar from "./SideBar";
 import { useParams } from "react-router-dom";
 import ContentHeader from "./ContentHeader";
 import ProjectContents from "./ProjectContents";
@@ -15,7 +15,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <SliderHeader {...props} />
+      <SideBar {...props} />
       <Content className="mt-[5px] transition-all duration-500 ease-in-out bg-white">
         <ContentHeader {...props} />
         {location.pathname === "/inbox" && <Inbox />}
