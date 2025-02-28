@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { EllipsisOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import colorsData from "../../colors.json";
 import DropDownMenu from "./DropDownMenu";
+import { TasksContext } from "../contexts/TasksContext";
 
 const DropDown = ({ project }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isEllipsClicked, setIsEllipsClicked] = useState(false);
+  const { tasks } = useContext(TasksContext);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (tasks) {
+      setCount(tasks.filter((task) => task.projectId === project.id).length);
+    }
+  }, [tasks, project.id]);
+
   const handleHoveredEvent = (e) => {
     setIsHovered(e);
   };
@@ -36,6 +46,9 @@ const DropDown = ({ project }) => {
             #
           </p>
           <p>{project.name}</p>
+          {!isHovered && (
+            <p className="absolute text-gray-500 text-sm right-3">{count}</p>
+          )}
         </div>
       </Link>
       <div className="relative flex items-center">
