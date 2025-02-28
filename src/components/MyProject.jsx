@@ -2,8 +2,8 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { DownOutlined } from "@ant-design/icons";
 import ProjectModal from "./ProjectModal";
-import ProjectList from "./DropDown";
 import { ProjectsContext } from "../contexts/ProjectsContext";
+import DropDown from "./DropDown";
 
 const MyProject = ({ callingFrom }) => {
   const [isHovered, setIsHovered] = useState(true);
@@ -32,7 +32,7 @@ const MyProject = ({ callingFrom }) => {
       <div
         onMouseEnter={() => handleMyProjectHoverEvent(false)}
         onMouseLeave={() => handleMyProjectHoverEvent(true)}
-        className="p-2 pl-4 bg-red-100 flex justify-between items-center text-gray-500 cursor-pointer hover:bg-gray-100 relative"
+        className="p-2 pl-4 bg-[#f9dbc8] flex justify-between items-center text-gray-500 cursor-pointer hover:bg-[#f6c7aa] relative"
       >
         {callingFrom === "home" ? (
           <p>Projects {projects.length - 1}</p>
@@ -61,7 +61,7 @@ const MyProject = ({ callingFrom }) => {
             {projects
               .filter((project) => project.name !== "Inbox")
               .map((project) => (
-                <ProjectList key={project.id} project={project} />
+                <DropDown key={project.id} project={project} />
               ))}
           </div>
         )
