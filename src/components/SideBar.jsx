@@ -104,7 +104,7 @@ const SideBar = ({ expand, setExpand }) => {
             Inbox
           </div>
           <Favorites />
-          <MyProject callingFrom={"slider"} />
+          <MyProject from={"slider"} />
         </div>
       </Sider>
     </div>
