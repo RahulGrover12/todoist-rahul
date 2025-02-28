@@ -2,7 +2,7 @@ import { useState } from "react";
 import { EllipsisOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import colorsData from "../../colors.json";
-import ProjectMenu from "./DropDownMenu";
+import DropDownMenu from "./DropDownMenu";
 
 const DropDown = ({ project }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -25,7 +25,7 @@ const DropDown = ({ project }) => {
       onMouseLeave={() => {
         handleHoveredEvent(false);
       }}
-      className={`p-1 pl-8 flex justify-between cursor-pointer hover:bg-gray-100`}
+      className={`p-1 pl-8 flex justify-between cursor-pointer hover:bg-[#ffefe5]`}
     >
       <Link to={`/${project.name}-${project.id}`}>
         <div className="flex gap-3 text-[15px] items-center">
@@ -59,7 +59,7 @@ const DropDown = ({ project }) => {
               width: "100px",
             }}
           >
-            <ProjectMenu project={project} />
+            <DropDownMenu project={project} />
           </div>
         )}
       </div>
