@@ -1,6 +1,7 @@
 import { Avatar, Layout } from "antd";
 import {
   BellOutlined,
+  CalendarOutlined,
   InboxOutlined,
   PlusCircleFilled,
 } from "@ant-design/icons";
@@ -102,6 +103,13 @@ const SideBar = ({ expand, setExpand }) => {
           >
             <InboxOutlined className="text-red-600 text-sm pr-3 text-center" />
             Inbox
+          </div>
+          <div
+            onClick={() => navigate("/today")}
+            className="p-2 pl-4 text-gray-500 font-bold cursor-pointer hover:bg-[#ffefe5] rounded-lg"
+          >
+            <CalendarOutlined className="text-red-600 text-sm pr-3 text-center" />
+            Today
           </div>
           <Favorites />
           <MyProject from={"slider"} />
