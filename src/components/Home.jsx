@@ -7,6 +7,7 @@ import ContentHeader from "./ContentHeader";
 import ProjectContents from "./ProjectContents";
 import MyProject from "./MyProject";
 import Inbox from "./Inbox";
+import Today from "./Today";
 
 const Home = () => {
   const [expand, setExpand] = useState(false);
@@ -19,11 +20,14 @@ const Home = () => {
       <Content className="mt-[5px] transition-all duration-500 ease-in-out bg-white">
         <ContentHeader {...props} />
         {location.pathname === "/inbox" && <Inbox />}
-        {!param && location.pathname !== "/inbox" && (
-          <>
-            <MyProject from={"home"} />
-          </>
-        )}
+        {location.pathname === "/today" && <Today />}
+        {!param &&
+          location.pathname !== "/inbox" &&
+          location.pathname !== "/today" && (
+            <>
+              <MyProject from={"home"} />
+            </>
+          )}
         {param && <ProjectContents param={param} />}
       </Content>
     </Layout>
