@@ -28,11 +28,11 @@ const AddNewTask = ({ values }) => {
 
     try {
       const response = await api.addTask(taskData);
-      message.success("Task added successfully");
-      console.log("Task added:", response);
-      handleAddTaskClicked(false);
       if (response) {
         handleAddTask(response);
+        handleAddTaskClicked(false);
+        message.success("Task added successfully");
+        console.log("Task added:", response);
       }
     } catch (error) {
       console.error("Error adding task:", error);
