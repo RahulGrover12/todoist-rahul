@@ -1,33 +1,22 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
 import AddNewTask from "./AddNewTask";
-import { getApi } from "../api/Api";
 import Task from "./Task";
+import { TasksContext } from "../contexts/TasksContext";
 
 const ProjectContents = ({ param }) => {
   const splitParam = param.split("-");
-  const api = getApi();
 
-  const [tasks, setTasks] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
   const [isAddTaskClicked, setIsAddTaskClicked] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
-
-  const handleAddTask = (newTask) => {
-    setTasks((prevTasks) => [...prevTasks, newTask]);
-  };
-
-  const handleUpdateTask = (updatedTask) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
-    );
-  };
-
-  const handleDeleteTask = (taskId) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
-  };
+  const {
+    tasks,
+    loading,
+    hasError,
+    handleDeleteTask,
+    handleUpdateTask,
+    handleAddTask,
+  } = useContext(TasksContext);
 
   const handleAddTaskClicked = (clickedEvent) => {
     setIsAddTaskClicked(clickedEvent);
@@ -36,21 +25,6 @@ const ProjectContents = ({ param }) => {
   const handleHoverEvent = (event) => {
     setIsHovered(event);
   };
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      setIsAddTaskClicked(false);
-      try {
-        const tasks = await api.getTasks();
-        setTasks(tasks);
-        setLoading(false);
-      } catch (error) {
-        setHasError(true);
-        console.log("Error while fetching the projects.", error.message);
-      }
-    };
-    fetchProjects();
-  }, [param]);
 
   if (hasError) {
     return <h1 className="text-red-500 text-center">No Project Found</h1>;
