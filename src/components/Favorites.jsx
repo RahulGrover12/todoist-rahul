@@ -1,15 +1,15 @@
 import { useContext, useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
-import ProjectList from "./DropDown";
 import { ProjectsContext } from "../contexts/ProjectsContext";
+import DropDown from "./DropDown";
 
 const Favorites = () => {
   const [mouseEnter, setMouseEnter] = useState(true);
   const [isToggle, setIsToggle] = useState(false);
   const { projects, loading, hasError } = useContext(ProjectsContext);
 
-  const handleFavoriteEvent = (mouseEvent) => {
-    setMouseEnter(mouseEvent);
+  const handleFavoriteEvent = (e) => {
+    setMouseEnter(e);
   };
 
   const handleToggleClick = () => {
@@ -58,7 +58,7 @@ const Favorites = () => {
         <div>
           {favoriteProjects.length > 0 ? (
             favoriteProjects.map((project) => (
-              <ProjectList key={project.id} project={project} />
+              <DropDown key={project.id} project={project} />
             ))
           ) : (
             <p className="text-gray-400 px-4 text-center">
