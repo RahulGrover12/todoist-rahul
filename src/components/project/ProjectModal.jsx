@@ -1,9 +1,8 @@
 import React, { useState, useContext } from "react";
 import { Modal, Form, Input, Select, Switch, Flex } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import colorsData from "../../colors.json";
-// import { getApi } from "../api/Api";
-import { ProjectsContext } from "../contexts/ProjectsContext";
+import colorsData from "../../styles/colors.json";
+import { ProjectsContext } from "../../contexts/ProjectsContext";
 
 const ProjectModal = ({
   title,
@@ -21,7 +20,6 @@ const ProjectModal = ({
     project ? project.is_favorite : false
   );
   const [form] = Form.useForm();
-  // const api = getApi();
 
   const { handleProjectAdd } = useContext(ProjectsContext);
 

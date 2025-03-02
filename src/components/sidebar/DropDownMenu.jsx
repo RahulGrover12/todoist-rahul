@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Menu } from "antd";
 import { HeartOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import ProjectModal from "./ProjectModal";
-import { ProjectsContext } from "../contexts/ProjectsContext";
+import ProjectModal from "../project/ProjectModal";
+import { ProjectsContext } from "../../contexts/ProjectsContext";
 import { useNavigate } from "react-router-dom";
 
 const DropDownMenu = ({ project }) => {

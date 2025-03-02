@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { EllipsisOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import colorsData from "../../colors.json";
+import colorsData from "../../styles/colors.json";
 import DropDownMenu from "./DropDownMenu";
-import { TasksContext } from "../contexts/TasksContext";
+import { TasksContext } from "../../contexts/TasksContext";
 
 const DropDown = ({ project }) => {
   const [isHovered, setIsHovered] = useState(false);

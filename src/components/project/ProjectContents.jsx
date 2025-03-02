@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
-import AddNewTask from "./AddNewTask";
-import Task from "./Task";
-import { TasksContext } from "../contexts/TasksContext";
+import AddNewTask from "../task/AddNewTask";
+import Task from "../task/Task";
+import { TasksContext } from "../../contexts/TasksContext";
 
 const ProjectContents = ({ param }) => {
   const splitParam = param.split("-");

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Layout } from "antd";
 const { Content } = Layout;
-import SideBar from "./SideBar";
+import SideBar from "./sidebar/SideBar";
 import { useParams } from "react-router-dom";
 import ContentHeader from "./ContentHeader";
-import ProjectContents from "./ProjectContents";
-import MyProject from "./MyProject";
+import ProjectContents from "./project/ProjectContents";
+import MyProject from "./project/MyProject";
 import Inbox from "./Inbox";
 import Today from "./Today";
 

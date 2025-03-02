@@ -6,12 +6,12 @@ import {
   PlusCircleFilled,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import sidebarImage from "../assets/images/sidebar.png";
-import MyProject from "./MyProject";
-import Favorites from "./Favorites";
-import { ProjectsContext } from "../contexts/ProjectsContext";
+import sidebarImage from "../../assets/images/sidebar.png";
+import MyProject from "../project/MyProject";
+import Favorites from "../Favorites";
+import { ProjectsContext } from "../../contexts/ProjectsContext";
 import React, { useContext, useState } from "react";
-import AddNewTask from "./AddNewTask";
+import AddNewTask from "../task/AddNewTask";
 const { Sider } = Layout;
 
 const SideBar = ({ expand, setExpand }) => {

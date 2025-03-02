@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Checkbox } from "antd";
 import { LoadingOutlined, EditOutlined } from "@ant-design/icons";
 import UpdateTask from "./UpdateTask";
-import { TasksContext } from "../contexts/TasksContext";
+import { TasksContext } from "../../contexts/TasksContext";
 
 const Task = ({ values }) => {
   const [isTaskChecked, setIsTaskChecked] = useState(false);

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
 import { ProjectsContext } from "../contexts/ProjectsContext";
-import DropDown from "./DropDown";
+import DropDown from "./sidebar/DropDown";
 
 const Favorites = () => {
   const [mouseEnter, setMouseEnter] = useState(true);

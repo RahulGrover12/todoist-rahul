@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import { Form, Button, DatePicker, Select, Input, message } from "antd";
-import { ProjectsContext } from "../contexts/ProjectsContext";
+import { ProjectsContext } from "../../contexts/ProjectsContext";
 import { LoadingOutlined } from "@ant-design/icons";
-import { TasksContext } from "../contexts/TasksContext";
+import { TasksContext } from "../../contexts/TasksContext";
 
 const UpdateTask = ({ values }) => {
   const { task, handleEditOnClick } = values;

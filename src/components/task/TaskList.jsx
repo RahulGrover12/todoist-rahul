@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Task from "./Task";
-import { ProjectsContext } from "../contexts/ProjectsContext";
-import { TasksContext } from "../contexts/TasksContext";
+import { ProjectsContext } from "../../contexts/ProjectsContext";
+import { TasksContext } from "../../contexts/TasksContext";
 
 const TaskList = ({ tasks, showProjectName = false }) => {
   const { projects } = useContext(ProjectsContext);

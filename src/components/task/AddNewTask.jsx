@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Modal, Form, Input, Select, DatePicker, Button } from "antd";
-import { ProjectsContext } from "../contexts/ProjectsContext";
-import { TasksContext } from "../contexts/TasksContext";
+import { ProjectsContext } from "../../contexts/ProjectsContext";
+import { TasksContext } from "../../contexts/TasksContext";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const AddNewTask = ({ values }) => {

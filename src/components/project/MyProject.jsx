@@ -2,8 +2,8 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { DownOutlined } from "@ant-design/icons";
 import ProjectModal from "./ProjectModal";
-import { ProjectsContext } from "../contexts/ProjectsContext";
-import DropDown from "./DropDown";
+import { ProjectsContext } from "../../contexts/ProjectsContext";
+import DropDown from "../sidebar/DropDown";
 
 const MyProject = ({ from }) => {
   const [isHovered, setIsHovered] = useState(true);
