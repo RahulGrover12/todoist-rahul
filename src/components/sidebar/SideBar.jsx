@@ -11,7 +11,7 @@ import MyProject from "../project/MyProject";
 import Favorites from "../Favorites";
 import { ProjectsContext } from "../../contexts/ProjectsContext";
 import React, { useContext, useState } from "react";
-import AddNewTask from "../task/AddNewTask";
+import AddNewTask from "../tasks/AddNewTask";
 const { Sider } = Layout;
 
 const SideBar = ({ expand, setExpand }) => {

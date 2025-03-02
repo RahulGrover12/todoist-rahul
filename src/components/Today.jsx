@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
-import TaskList from "./task/TaskList";
+import TaskList from "./tasks/TaskList";
 import { TasksContext } from "../contexts/TasksContext";
 import { ProjectsContext } from "../contexts/ProjectsContext";
 import { PlusOutlined } from "@ant-design/icons";
-import AddNewTask from "./task/AddNewTask";
+import AddNewTask from "./tasks/AddNewTask";
 
 const Today = () => {
   const { tasks, loading, hasError, handleAddTask } = useContext(TasksContext);

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
-import AddNewTask from "../task/AddNewTask";
-import Task from "../task/Task";
+import AddNewTask from "../tasks/AddNewTask";
+import Task from "../tasks/Task";
 import { TasksContext } from "../../contexts/TasksContext";
 
 const ProjectContents = ({ param }) => {
