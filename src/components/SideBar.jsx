@@ -10,7 +10,7 @@ import sidebarImage from "../assets/images/sidebar.png";
 import MyProject from "./MyProject";
 import Favorites from "./Favorites";
 import { ProjectsContext } from "../contexts/ProjectsContext";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import AddNewTask from "./AddNewTask";
 const { Sider } = Layout;
 import { message } from "antd";
@@ -23,9 +23,6 @@ const SideBar = ({ expand, setExpand }) => {
 
   const handleAddTaskClicked = (e) => {
     setIsAddTaskClicked(e);
-    if (window.innerWidth < 768) {
-      setExpand(true);
-    }
   };
   const handleSliderClick = () => {
     setExpand(!expand);
@@ -35,23 +32,6 @@ const SideBar = ({ expand, setExpand }) => {
   const inboxProject = projects.find((project) => project.is_inbox_project);
   const inboxproject_id = inboxProject ? inboxProject.id : null;
 
-  const handleNavClick = (route) => {
-    navigate(route);
-    if (window.innerWidth < 300) {
-      setExpand(true);
-    }
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 368) {
-        setExpand(true);
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [setExpand]);
-
   return (
     <div
       className={`relative transition-all duration-500 ease-in-out ${
@@ -59,7 +39,7 @@ const SideBar = ({ expand, setExpand }) => {
       }`}
     >
       <Sider
-        width={window.innerWidth < 300 ? "90vw" : "300px"}
+        width="300px"
         className={`h-screen bg-[#f9f5f3] relative transition-transform duration-500 ease-in-out transform ${
           expand ? "-translate-x-full" : "translate-x-0"
         }`}
@@ -118,14 +98,14 @@ const SideBar = ({ expand, setExpand }) => {
             />
           )}
           <div
-            onClick={() => handleNavClick("/inbox")}
+            onClick={() => navigate("/inbox")}
             className="p-2 pl-4 text-gray-500 font-bold cursor-pointer hover:bg-[#ffefe5] rounded-lg"
           >
             <InboxOutlined className="text-red-600 text-sm pr-3 text-center" />
             Inbox
           </div>
           <div
-            onClick={() => handleNavClick("/today")}
+            onClick={() => navigate("/today")}
             className="p-2 pl-4 text-gray-500 font-bold cursor-pointer hover:bg-[#ffefe5] rounded-lg"
           >
             <CalendarOutlined className="text-red-600 text-sm pr-3 text-center" />
