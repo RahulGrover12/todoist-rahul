@@ -1,21 +1,25 @@
 import React, { useState, useContext } from "react";
-import TaskList from "./tasks/TaskList";
-import { TasksContext } from "../contexts/TasksContext";
-import { ProjectsContext } from "../contexts/ProjectsContext";
+import TaskList from "../tasks/TaskList";
+import { TasksContext } from "../../contexts/TasksContext";
+import { ProjectsContext } from "../../contexts/ProjectsContext";
 import { PlusOutlined } from "@ant-design/icons";
-import AddNewTask from "./tasks/AddNewTask";
+import AddNewTask from "../tasks/AddNewTask";
 
-const Today = () => {
+const Inbox = () => {
   const { tasks, loading, hasError, handleAddTask } = useContext(TasksContext);
   const { projects } = useContext(ProjectsContext);
+
   const [isAddTaskClicked, setIsAddTaskClicked] = useState(false);
+  const handleAddTaskClicked = (e) => {
+    setIsAddTaskClicked(e);
+  };
 
   const inboxProject = projects.find((project) => project.is_inbox_project);
   const inboxproject_id = inboxProject ? inboxProject.id : null;
 
-  const handleAddTaskClicked = (clicked) => {
-    setIsAddTaskClicked(clicked);
-  };
+  const inboxTasks = tasks.filter(
+    (task) => task.project_id === inboxproject_id
+  );
 
   if (hasError) {
     return (
@@ -34,13 +38,13 @@ const Today = () => {
   }
 
   return (
-    <div className="max-w-3xl mx-auto mt-6 mb-10">
-      <h1 className="text-2xl font-bold mb-4">All Tasks</h1>
+    <div className="max-w-3xl mx-auto mt-6">
+      <h1 className="text-2xl font-bold mb-4">Inbox</h1>
 
-      {tasks.length > 0 ? (
-        <TaskList tasks={tasks} showProjectName={true} />
+      {inboxTasks.length > 0 ? (
+        <TaskList tasks={inboxTasks} />
       ) : (
-        <p className="text-gray-400 text-center">No tasks available</p>
+        <p className="text-gray-400 text-center">No tasks in Inbox</p>
       )}
 
       <div
@@ -64,4 +68,4 @@ const Today = () => {
   );
 };
 
-export default Today;
+export default Inbox;

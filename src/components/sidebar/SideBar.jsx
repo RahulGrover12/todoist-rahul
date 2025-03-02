@@ -8,7 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import sidebarImage from "../../assets/images/sidebar.png";
 import MyProject from "../project/MyProject";
-import Favorites from "../Favorites";
+import Favorites from "./Favorites";
 import { ProjectsContext } from "../../contexts/ProjectsContext";
 import React, { useContext, useState } from "react";
 import AddNewTask from "../tasks/AddNewTask";

@@ -3,11 +3,11 @@ import { Layout } from "antd";
 const { Content } = Layout;
 import SideBar from "./sidebar/SideBar";
 import { useParams } from "react-router-dom";
-import ContentHeader from "./ContentHeader";
-import ProjectContents from "./project/ProjectContents";
+import ContentHeader from "./pages/ContentHeader";
+import ProjectContents from "./pages/ProjectContents";
 import MyProject from "./project/MyProject";
-import Inbox from "./Inbox";
-import Today from "./Today";
+import Inbox from "./pages/Inbox";
+import Today from "./pages/Today";
 
 const Home = () => {
   const [expand, setExpand] = useState(false);
