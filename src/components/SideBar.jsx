@@ -1,4 +1,4 @@
-import { Avatar, Layout } from "antd";
+import { message, Avatar, Layout } from "antd";
 import {
   BellOutlined,
   CalendarOutlined,
@@ -13,7 +13,6 @@ import { ProjectsContext } from "../contexts/ProjectsContext";
 import React, { useContext, useState } from "react";
 import AddNewTask from "./AddNewTask";
 const { Sider } = Layout;
-import { message } from "antd";
 
 const SideBar = ({ expand, setExpand }) => {
   const navigate = useNavigate();

@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Checkbox } from "antd";
-// import { getApi } from "../api/Api";
 import { LoadingOutlined, EditOutlined } from "@ant-design/icons";
 import UpdateTask from "./UpdateTask";
 import { TasksContext } from "../contexts/TasksContext";
@@ -11,7 +10,6 @@ const Task = ({ values }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isEditClicked, setIsEditClicked] = useState(false);
   const { handleDeleteTask } = useContext(TasksContext);
-  // const api = getApi();
   const { task, handleUpdateTask } = values;
 
   const handleHoveredTask = (value) => {
@@ -52,8 +50,6 @@ const Task = ({ values }) => {
           {task.description && (
             <p className="text-gray-600 ml-[30px]">{task.description}</p>
           )}
-          {/* {console.log(task.due, task.due.date)} */}
-          {/* {console.log(task)} */}
           {task.created_at && (
             <p className="text-blue-600 ml-[30px]">
               {task.created_at.slice(0, 10)}
