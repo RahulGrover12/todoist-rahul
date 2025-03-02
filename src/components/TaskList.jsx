@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import Task from "./Task";
 import { ProjectsContext } from "../contexts/ProjectsContext";
 import { TasksContext } from "../contexts/TasksContext";
@@ -11,7 +11,7 @@ const TaskList = ({ tasks, showProjectName = false }) => {
       {tasks.length > 0 ? (
         tasks.map((task) => {
           const project = projects.find(
-            (project) => project.id === task.projectId
+            (project) => project.id === task.project_id
           );
           return (
             <div

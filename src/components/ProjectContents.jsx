@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
 import AddNewTask from "./AddNewTask";
 import Task from "./Task";
@@ -37,10 +37,10 @@ const ProjectContents = ({ param }) => {
       <div className="mt-5 w-[50%]">
         <p className="w-full text-[25px] font-bold">{splitParam[0]}</p>
         <div>
-          {tasks.filter((task) => task.projectId === splitParam[1]).length >
+          {tasks.filter((task) => task.project_id === splitParam[1]).length >
           0 ? (
             tasks
-              .filter((task) => task.projectId === splitParam[1])
+              .filter((task) => task.project_id === splitParam[1])
               .map((task) => (
                 <Task
                   key={task.id}

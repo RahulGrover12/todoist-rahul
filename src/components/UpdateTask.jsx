@@ -1,49 +1,55 @@
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Form, Button, DatePicker, Select, Input, message } from "antd";
 import { ProjectsContext } from "../contexts/ProjectsContext";
-import { getApi } from "../api/Api";
 import { LoadingOutlined } from "@ant-design/icons";
+import { TasksContext } from "../contexts/TasksContext";
 
 const UpdateTask = ({ values }) => {
-  const { task, handleEditOnClick, handleUpdateTask } = values;
+  const { task, handleEditOnClick } = values;
   const { projects } = useContext(ProjectsContext);
-
-  const [selectedProject, setSelectedProject] = useState(task.projectId);
+  const { handleUpdateTask, handleDeleteTask, handleAddTask } =
+    useContext(TasksContext);
+  const [selectedProject, setSelectedProject] = useState(task.project_id);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const onFinish = (formValues) => {
-    const { taskName, description, dueDate } = formValues;
 
-    const taskData = {
-      content: taskName,
-      description: description || "",
-      dueDate: dueDate || null,
-      projectId: selectedProject,
-    };
-
+  const onFinish = async (formValues) => {
+    const { taskName, description } = formValues;
     setLoading(true);
-    taskUpdater(taskData);
-  };
-
-  const taskUpdater = async (taskData) => {
-    const api = getApi();
 
     try {
-      const resp = await api.updateTask(task.id, taskData);
-      if (resp) {
-        handleUpdateTask({ ...task, ...taskData });
-        handleEditOnClick(false);
-        message.success("Task Edited successfully");
+      if (task.project_id !== selectedProject) {
+        const originalMessage = message.success;
+        message.success = () => {};
+
+        await handleDeleteTask(task.id);
+
+        await handleAddTask({
+          content: taskName,
+          description: description || "",
+          project_id: selectedProject,
+        });
+
+        message.success = originalMessage;
+
+        message.success("Task moved to a new project successfully!");
+      } else {
+        const updatedTask = {
+          id: task.id,
+          content: taskName,
+          description: description || "",
+          project_id: selectedProject,
+        };
+
+        await handleUpdateTask(updatedTask);
       }
-    } catch (error) {
-      setError(error);
+
+      handleEditOnClick(false);
+    } catch {
+      message.error("Task update failed, please try again.");
     } finally {
       setLoading(false);
     }
   };
-  if (error) {
-    return <h1>Error: {error}</h1>;
-  }
 
   return (
     <Form
@@ -53,8 +59,7 @@ const UpdateTask = ({ values }) => {
       initialValues={{
         taskName: task.content,
         description: task.description,
-        dueDate: task.dueDate ? task.dueDate : null,
-        project: task.projectId,
+        project: task.project_id,
       }}
     >
       <Form.Item
@@ -74,14 +79,13 @@ const UpdateTask = ({ values }) => {
       <Form.Item name="dueDate">
         <DatePicker placeholder="Due date" />
       </Form.Item>
+
       <hr />
       <div className="flex justify-between gap-5 mt-3">
         <Form.Item name="project">
           <Select
             value={selectedProject}
-            onChange={(value) => {
-              setSelectedProject(value);
-            }}
+            onChange={(value) => setSelectedProject(value)}
           >
             {projects.map((project) => (
               <Select.Option key={project.id} value={project.id}>

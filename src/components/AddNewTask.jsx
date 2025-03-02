@@ -1,43 +1,37 @@
-import { useState, useContext } from "react";
-import { Modal, Form, Input, Select, DatePicker, message } from "antd";
+import React, { useState, useContext } from "react";
+import { Modal, Form, Input, Select, DatePicker, Button } from "antd";
 import { ProjectsContext } from "../contexts/ProjectsContext";
-import { getApi } from "../api/Api";
+import { TasksContext } from "../contexts/TasksContext";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const AddNewTask = ({ values }) => {
   const { projects } = useContext(ProjectsContext);
-  const { handleAddTaskClicked, splitParam, handleAddTask } = values;
+  const { handleAddTask } = useContext(TasksContext);
+  const { handleAddTaskClicked, splitParam } = values;
+
   const [isModalVisible, setIsModalVisible] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form] = Form.useForm();
-  const api = getApi();
 
   const currentProject = projects.find(
     (project) => project.id === splitParam[1]
   );
-
   const [selectedProject, setSelectedProject] = useState(splitParam[1]);
 
   const onFinish = async (formValues) => {
-    const { taskName, description, dueDate } = formValues;
+    const { taskName, description } = formValues;
 
     const taskData = {
       content: taskName,
       description: description || "",
-      dueDate: dueDate || null,
-      projectId: selectedProject,
+      project_id: selectedProject,
     };
 
-    try {
-      const response = await api.addTask(taskData);
-      if (response) {
-        handleAddTask(response);
-        handleAddTaskClicked(false);
-        message.success("Task added successfully");
-        console.log("Task added:", response);
-      }
-    } catch (error) {
-      console.error("Error adding task:", error);
-      message.error("Failed to add task");
-    }
+    setIsSubmitting(true);
+    await handleAddTask(taskData);
+
+    setIsSubmitting(false);
+    handleAddTaskClicked(false);
   };
 
   const handleCancel = () => {
@@ -54,8 +48,22 @@ const AddNewTask = ({ values }) => {
         onCancel={handleCancel}
         okText="Add Task"
         okButtonProps={{
-          style: { background: "#C3392C" },
+          disabled: isSubmitting,
+          style: { background: isSubmitting ? "#EDA59E" : "#C3392C" },
         }}
+        footer={[
+          <Button key="cancel" onClick={handleCancel} disabled={isSubmitting}>
+            Cancel
+          </Button>,
+          <Button
+            key="submit"
+            className="bg-red-500 text-white"
+            onClick={() => form.submit()}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? <LoadingOutlined /> : "Add Task"}
+          </Button>,
+        ]}
       >
         <Form
           form={form}
@@ -73,21 +81,21 @@ const AddNewTask = ({ values }) => {
             label={<p className="font-bold">Task Name</p>}
             rules={[{ required: true, message: "Please enter task name" }]}
           >
-            <Input placeholder="Enter new task name" />
+            <Input placeholder="Enter new task name" disabled={isSubmitting} />
           </Form.Item>
 
           <Form.Item
             name="description"
             label={<p className="font-bold">Description</p>}
           >
-            <Input placeholder="Enter description" />
+            <Input placeholder="Enter description" disabled={isSubmitting} />
           </Form.Item>
 
           <Form.Item
             name="dueDate"
             label={<p className="font-bold">Due Date</p>}
           >
-            <DatePicker placeholder="Select due date" />
+            <DatePicker placeholder="Select due date" disabled={isSubmitting} />
           </Form.Item>
 
           <Form.Item
@@ -97,6 +105,7 @@ const AddNewTask = ({ values }) => {
             <Select
               value={selectedProject}
               onChange={(value) => setSelectedProject(value)}
+              disabled={isSubmitting}
             >
               {projects.map((project) => (
                 <Select.Option key={project.id} value={project.id}>

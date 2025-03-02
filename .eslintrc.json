@@ -1,0 +1,20 @@
+{
+    "extends": ["eslint:recommended", "google"],
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "env": {
+      "browser": true,
+      "es6": true,
+      "node": true
+    },
+    "rules": {
+      "require-jsdoc": "off", // Google enforces JSDoc, turn off if unnecessary
+      "no-console": "warn", // Show warnings for console logs
+      "indent": ["error", 2], // Enforce 2-space indentation
+      "quotes": ["error", "double"], // Enforce double quotes
+      "semi": ["error", "always"] // Ensure semicolons at the end of statements
+    }
+  }
+  

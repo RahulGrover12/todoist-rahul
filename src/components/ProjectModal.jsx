@@ -1,8 +1,8 @@
-import { useState, useContext } from "react";
-import { Modal, Form, Input, Select, Switch, Flex, message } from "antd";
+import React, { useState, useContext } from "react";
+import { Modal, Form, Input, Select, Switch, Flex } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import colorsData from "../../colors.json";
-import { getApi } from "../api/Api";
+// import { getApi } from "../api/Api";
 import { ProjectsContext } from "../contexts/ProjectsContext";
 
 const ProjectModal = ({
@@ -17,27 +17,20 @@ const ProjectModal = ({
   const [selectedColor, setSelectedColor] = useState(
     project ? project.color : "charcoal"
   );
-  const [isFavorite, setIsFavorite] = useState(
-    project ? project.isFavorite : false
+  const [is_favorite, setis_favorite] = useState(
+    project ? project.is_favorite : false
   );
   const [form] = Form.useForm();
-  const api = getApi();
+  // const api = getApi();
 
   const { handleProjectAdd } = useContext(ProjectsContext);
 
-  const addProjectInTodoist = async (values) => {
-    try {
-      if (operation === "Add") {
-        const resp = await api.addProject(values);
-        message.success("Project added successfully");
-        console.log("Project Added..", resp);
-        handleProjectAdd(resp);
-      } else {
-        updateProjectInTodoist(values);
-      }
-    } catch (error) {
-      message.error("Project failed to add");
-      console.log(error.message);
+  const addProjectInTodoist = (values) => {
+    if (operation === "Add") {
+      handleProjectAdd(values);
+    } else {
+      const updatedProject = { ...project, ...values, id: project.id };
+      updateProjectInTodoist(updatedProject);
     }
   };
 
@@ -45,12 +38,12 @@ const ProjectModal = ({
     setIsModalVisible(false);
     setProjectName("");
     setSelectedColor("charcoal");
-    setIsFavorite(false);
+    setis_favorite(false);
     form.resetFields();
     form.setFieldsValue({
       name: "",
       color: "charcoal",
-      isFavorite: false,
+      is_favorite: false,
     });
   };
 
@@ -132,15 +125,15 @@ const ProjectModal = ({
               ))}
             </Select>
           </Form.Item>
-          <Form.Item name="isFavorite" valuePropName="checked">
+          <Form.Item name="is_favorite" valuePropName="checked">
             <Flex gap={20} align="center">
               <Switch
                 size="small"
                 className="w-[30px]"
-                checked={isFavorite}
+                checked={is_favorite}
                 onChange={(checked) => {
-                  setIsFavorite(checked);
-                  form.setFieldsValue({ isFavorite: checked });
+                  setis_favorite(checked);
+                  form.setFieldsValue({ is_favorite: checked });
                 }}
               />
               <p>Add to favorite</p>

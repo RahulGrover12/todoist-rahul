@@ -1,17 +1,18 @@
-import { useState } from "react";
-import { Checkbox, message } from "antd";
-import { getApi } from "../api/Api";
+import React, { useContext, useState } from "react";
+import { Checkbox } from "antd";
+// import { getApi } from "../api/Api";
 import { LoadingOutlined, EditOutlined } from "@ant-design/icons";
 import UpdateTask from "./UpdateTask";
+import { TasksContext } from "../contexts/TasksContext";
 
 const Task = ({ values }) => {
   const [isTaskChecked, setIsTaskChecked] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isEditClicked, setIsEditClicked] = useState(false);
-
-  const api = getApi();
-  const { task, handleDeleteTask, handleUpdateTask } = values;
+  const { handleDeleteTask } = useContext(TasksContext);
+  // const api = getApi();
+  const { task, handleUpdateTask } = values;
 
   const handleHoveredTask = (value) => {
     setIsHovered(value);
@@ -24,19 +25,8 @@ const Task = ({ values }) => {
   const deleteTask = async (e) => {
     setIsTaskChecked(e.target.checked);
     setLoading(true);
-
-    try {
-      const isSuccess = await api.deleteTask(task.id);
-      if (isSuccess) {
-        handleDeleteTask(task.id);
-        message.success("Task Completed successfully");
-      }
-    } catch (error) {
-      message.success("Failed to delete Task");
-      console.log(error.message);
-    } finally {
-      setLoading(false);
-    }
+    await handleDeleteTask(task.id);
+    setLoading(false);
   };
 
   return (
@@ -53,6 +43,7 @@ const Task = ({ values }) => {
             checked={isTaskChecked}
             className="circle-checkbox flex items-center gap-2"
             onChange={deleteTask}
+            disabled={loading}
           >
             <span className="font-medium">{task.content}</span>
             {loading && <LoadingOutlined className="ml-[10px]" />}
@@ -61,8 +52,12 @@ const Task = ({ values }) => {
           {task.description && (
             <p className="text-gray-600 ml-[30px]">{task.description}</p>
           )}
-          {task.due && (
-            <p className="text-blue-600 ml-[30px]">{task.due.date}</p>
+          {/* {console.log(task.due, task.due.date)} */}
+          {/* {console.log(task)} */}
+          {task.created_at && (
+            <p className="text-blue-600 ml-[30px]">
+              {task.created_at.slice(0, 10)}
+            </p>
           )}
         </div>
 

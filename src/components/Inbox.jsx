@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import TaskList from "./TaskList";
 import { TasksContext } from "../contexts/TasksContext";
 import { ProjectsContext } from "../contexts/ProjectsContext";
@@ -14,10 +14,12 @@ const Inbox = () => {
     setIsAddTaskClicked(e);
   };
 
-  const inboxProject = projects.find((project) => project.isInboxProject);
-  const inboxProjectId = inboxProject ? inboxProject.id : null;
+  const inboxProject = projects.find((project) => project.is_inbox_project);
+  const inboxproject_id = inboxProject ? inboxProject.id : null;
 
-  const inboxTasks = tasks.filter((task) => task.projectId === inboxProjectId);
+  const inboxTasks = tasks.filter(
+    (task) => task.project_id === inboxproject_id
+  );
 
   if (hasError) {
     return (
@@ -57,7 +59,7 @@ const Inbox = () => {
         <AddNewTask
           values={{
             handleAddTaskClicked,
-            splitParam: ["Inbox", inboxProjectId],
+            splitParam: ["Inbox", inboxproject_id],
             handleAddTask,
           }}
         />

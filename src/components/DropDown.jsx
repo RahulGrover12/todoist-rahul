@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { EllipsisOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import colorsData from "../../colors.json";
@@ -13,7 +13,7 @@ const DropDown = ({ project }) => {
 
   useEffect(() => {
     if (tasks) {
-      setCount(tasks.filter((task) => task.projectId === project.id).length);
+      setCount(tasks.filter((task) => task.project_id === project.id).length);
     }
   }, [tasks, project.id]);
 
@@ -28,7 +28,6 @@ const DropDown = ({ project }) => {
   const colorsHexCode = colorsData.colors.filter(
     (color) => color.colorName === project.color
   );
-
   return project ? (
     <div
       onMouseEnter={() => handleHoveredEvent(true)}

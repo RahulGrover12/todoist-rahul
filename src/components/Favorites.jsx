@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
 import { ProjectsContext } from "../contexts/ProjectsContext";
 import DropDown from "./DropDown";
@@ -33,7 +33,7 @@ const Favorites = () => {
   }
 
   const favoriteProjects = projects.filter(
-    (project) => project.name !== "Inbox" && project.isFavorite
+    (project) => project.name !== "Inbox" && project.is_favorite
   );
 
   return (
