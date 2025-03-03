@@ -33,12 +33,16 @@ const Today = () => {
     );
   }
 
+  const formattedDate = new Date().toLocaleDateString("en-CA");
+  const todayTasks = tasks.filter(
+    (task) => task.created_at.slice(0, 10) === formattedDate
+  );
   return (
     <div className="max-w-3xl mx-auto mt-6 mb-10">
       <h1 className="text-2xl font-bold mb-4">All Tasks</h1>
 
-      {tasks.length > 0 ? (
-        <TaskList tasks={tasks} showProjectName={true} />
+      {todayTasks.length > 0 ? (
+        <TaskList tasks={todayTasks} showProjectName={true} />
       ) : (
         <p className="text-gray-400 text-center">No tasks available</p>
       )}
