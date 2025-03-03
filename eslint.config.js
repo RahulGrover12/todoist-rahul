@@ -11,6 +11,14 @@ export default [
   pluginReact.configs.flat.recommended,
 
   {
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
+  },
+
+  {
     rules: {
       "react/prop-types": "off",
     },
