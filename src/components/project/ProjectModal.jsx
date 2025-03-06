@@ -1,52 +1,43 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Modal, Form, Input, Select, Switch, Flex } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import colorsData from "../../styles/colors.json";
-import { ProjectsContext } from "../../contexts/ProjectsContext";
+import { useDispatch } from "react-redux";
+import { addProject, updateProject } from "../../features/projectSlice";
 
-const ProjectModal = ({
-  title,
-  operation,
-  project,
-  openModal,
-  updateProjectInTodoist,
-}) => {
+const ProjectModal = ({ title, operation, project, openModal }) => {
+  const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(openModal);
   const [projectName, setProjectName] = useState(project ? project.name : "");
   const [selectedColor, setSelectedColor] = useState(
     project ? project.color : "charcoal"
   );
-  const [is_favorite, setis_favorite] = useState(
+  const [is_favorite, setIsFavorite] = useState(
     project ? project.is_favorite : false
   );
   const [form] = Form.useForm();
 
-  const { handleProjectAdd } = useContext(ProjectsContext);
-
-  const addProjectInTodoist = (values) => {
+  const handleProjectSubmit = (values) => {
     if (operation === "Add") {
-      handleProjectAdd(values);
+      dispatch(addProject(values));
     } else {
       const updatedProject = { ...project, ...values, id: project.id };
-      updateProjectInTodoist(updatedProject);
+      dispatch(
+        updateProject({
+          project_id: project.id,
+          updatedProjectData: updatedProject,
+        })
+      );
     }
+    resetFields();
   };
 
   const resetFields = () => {
     setIsModalVisible(false);
     setProjectName("");
     setSelectedColor("charcoal");
-    setis_favorite(false);
+    setIsFavorite(false);
     form.resetFields();
-    form.setFieldsValue({
-      name: "",
-      color: "charcoal",
-      is_favorite: false,
-    });
-  };
-
-  const showModal = () => {
-    setIsModalVisible(true);
   };
 
   const handleOk = () => {
@@ -58,16 +49,11 @@ const ProjectModal = ({
     resetFields();
   };
 
-  const onFormSubmit = (values) => {
-    addProjectInTodoist(values);
-    resetFields();
-  };
-
   return (
     <div>
       {operation === "Add" && (
         <PlusOutlined
-          onClick={showModal}
+          onClick={() => setIsModalVisible(true)}
           className="p-1 mr-2 hover:bg-gray-200 rounded-lg cursor-pointer"
         />
       )}
@@ -84,34 +70,14 @@ const ProjectModal = ({
           disabled: !projectName,
         }}
       >
-        <Form form={form} layout="vertical" onFinish={onFormSubmit}>
-          <Form.Item
-            name="name"
-            label={<p className="font-bold">Name</p>}
-            initialValue={projectName}
-          >
-            <Input
-              initialvalue={projectName}
-              onChange={(e) => setProjectName(e.target.value)}
-            />
+        <Form form={form} layout="vertical" onFinish={handleProjectSubmit}>
+          <Form.Item name="name" label="Name" initialValue={projectName}>
+            <Input onChange={(e) => setProjectName(e.target.value)} />
           </Form.Item>
-          <Form.Item
-            name="color"
-            label={<p className="font-bold">Color</p>}
-            initialValue={selectedColor}
-          >
-            <Select
-              value={selectedColor}
-              initialvalue={selectedColor}
-              onChange={(value) => {
-                setSelectedColor(value);
-              }}
-            >
+          <Form.Item name="color" label="Color" initialValue={selectedColor}>
+            <Select onChange={(value) => setSelectedColor(value)}>
               {colorsData.colors.map((color) => (
-                <Select.Option
-                  key={color.colorName}
-                  initialvalue={color.colorName}
-                >
+                <Select.Option key={color.colorName}>
                   <div className="flex gap-5 items-center">
                     <div
                       className="h-[10px] w-[10px] rounded-full"
@@ -130,7 +96,7 @@ const ProjectModal = ({
                 className="w-[30px]"
                 checked={is_favorite}
                 onChange={(checked) => {
-                  setis_favorite(checked);
+                  setIsFavorite(checked);
                   form.setFieldsValue({ is_favorite: checked });
                 }}
               />

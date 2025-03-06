@@ -1,12 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Modal, Form, Input, Select, DatePicker, Button } from "antd";
-import { ProjectsContext } from "../../contexts/ProjectsContext";
-import { TasksContext } from "../../contexts/TasksContext";
+import { useSelector, useDispatch } from "react-redux";
+import { addTask } from "../../features/taskSlice";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const AddNewTask = ({ values }) => {
-  const { projects } = useContext(ProjectsContext);
-  const { handleAddTask } = useContext(TasksContext);
+  const projects = useSelector((state) => state.projects.projects);
+  const dispatch = useDispatch();
   const { handleAddTaskClicked, splitParam } = values;
 
   const [isModalVisible, setIsModalVisible] = useState(true);
@@ -28,8 +28,7 @@ const AddNewTask = ({ values }) => {
     };
 
     setIsSubmitting(true);
-    await handleAddTask(taskData);
-
+    await dispatch(addTask(taskData));
     setIsSubmitting(false);
     handleAddTaskClicked(false);
   };

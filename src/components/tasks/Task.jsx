@@ -1,16 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Checkbox } from "antd";
 import { LoadingOutlined, EditOutlined } from "@ant-design/icons";
 import UpdateTask from "./UpdateTask";
-import { TasksContext } from "../../contexts/TasksContext";
+import { useDispatch } from "react-redux";
+import { deleteTask } from "../../features/taskSlice";
 
 const Task = ({ values }) => {
+  const dispatch = useDispatch();
   const [isTaskChecked, setIsTaskChecked] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isEditClicked, setIsEditClicked] = useState(false);
-  const { handleDeleteTask } = useContext(TasksContext);
-  const { task, handleUpdateTask } = values;
+  const { task } = values;
 
   const handleHoveredTask = (value) => {
     setIsHovered(value);
@@ -20,10 +21,11 @@ const Task = ({ values }) => {
     setIsEditClicked(value);
   };
 
-  const deleteTask = async (e) => {
+  const deleteTaskHandler = async (e) => {
     setIsTaskChecked(e.target.checked);
+    console.log();
     setLoading(true);
-    await handleDeleteTask(task.id);
+    await dispatch(deleteTask(task.id));
     setLoading(false);
   };
 
@@ -40,7 +42,7 @@ const Task = ({ values }) => {
           <Checkbox
             checked={isTaskChecked}
             className="circle-checkbox flex items-center gap-2"
-            onChange={deleteTask}
+            onChange={deleteTaskHandler}
             disabled={loading}
           >
             <span className="font-medium">{task.content}</span>
@@ -64,9 +66,7 @@ const Task = ({ values }) => {
           }`}
         />
       </div>
-      {isEditClicked && (
-        <UpdateTask values={{ task, handleEditOnClick, handleUpdateTask }} />
-      )}
+      {isEditClicked && <UpdateTask values={{ task, handleEditOnClick }} />}
       <hr />
     </>
   );

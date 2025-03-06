@@ -1,14 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { DownOutlined } from "@ant-design/icons";
 import ProjectModal from "./ProjectModal";
-import { ProjectsContext } from "../../contexts/ProjectsContext";
+import { useSelector } from "react-redux";
 import DropDown from "../sidebar/DropDown";
 
 const MyProject = ({ from }) => {
   const [isHovered, setIsHovered] = useState(true);
   const [isToggle, setIsToggle] = useState(false);
-  const { projects, loading, hasError } = useContext(ProjectsContext);
+  const { projects, loading, error } = useSelector((state) => state.projects);
 
   const props = {
     title: "Add Project",
@@ -23,7 +23,7 @@ const MyProject = ({ from }) => {
     setIsToggle(!isToggle);
   };
 
-  if (hasError) {
+  if (error) {
     return <h1 className="text-red-500 text-center">No Project Found</h1>;
   }
 

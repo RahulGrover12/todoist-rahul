@@ -1,40 +1,32 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import TaskList from "../tasks/TaskList";
-import { TasksContext } from "../../contexts/TasksContext";
-import { ProjectsContext } from "../../contexts/ProjectsContext";
+import { useSelector, useDispatch } from "react-redux";
 import { PlusOutlined } from "@ant-design/icons";
 import AddNewTask from "../tasks/AddNewTask";
+import { addTask } from "../../features/taskSlice";
 
 const Inbox = () => {
-  const { tasks, loading, hasError, handleAddTask } = useContext(TasksContext);
-  const { projects } = useContext(ProjectsContext);
+  const dispatch = useDispatch();
+  const tasks = useSelector((state) => state.tasks.tasks);
+  const loading = useSelector((state) => state.tasks.loading);
+  const hasError = useSelector((state) => state.tasks.error);
+  const projects = useSelector((state) => state.projects.projects);
 
   const [isAddTaskClicked, setIsAddTaskClicked] = useState(false);
-  const handleAddTaskClicked = (e) => {
-    setIsAddTaskClicked(e);
-  };
+  const handleAddTaskClicked = (e) => setIsAddTaskClicked(e);
 
   const inboxProject = projects.find((project) => project.is_inbox_project);
   const inboxproject_id = inboxProject ? inboxProject.id : null;
-
   const inboxTasks = tasks.filter(
     (task) => task.project_id === inboxproject_id
   );
 
   if (hasError) {
-    return (
-      <h1 className="text-red-500 text-center">
-        Something went wrong while loading tasks
-      </h1>
-    );
+    return <h1 className="text-red-500 text-center">Error loading tasks</h1>;
   }
 
   if (loading) {
-    return (
-      <h1 className="text-gray-500 text-center">
-        Loading tasks, please wait...
-      </h1>
-    );
+    return <h1 className="text-gray-500 text-center">Loading tasks...</h1>;
   }
 
   return (
@@ -60,7 +52,7 @@ const Inbox = () => {
           values={{
             handleAddTaskClicked,
             splitParam: ["Inbox", inboxproject_id],
-            handleAddTask,
+            handleAddTask: (task) => dispatch(addTask(task)),
           }}
         />
       )}

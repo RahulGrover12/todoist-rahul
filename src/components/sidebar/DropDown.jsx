@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { EllipsisOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import colorsData from "../../styles/colors.json";
 import DropDownMenu from "./DropDownMenu";
-import { TasksContext } from "../../contexts/TasksContext";
 
 const DropDown = ({ project }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isEllipsClicked, setIsEllipsClicked] = useState(false);
-  const { tasks } = useContext(TasksContext);
+  const tasks = useSelector((state) => state.tasks.tasks);
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -17,24 +17,15 @@ const DropDown = ({ project }) => {
     }
   }, [tasks, project.id]);
 
-  const handleHoveredEvent = (e) => {
-    setIsHovered(e);
-  };
-
-  const handleElipseClicked = () => {
-    setIsEllipsClicked(!isEllipsClicked);
-  };
-
   const colorsHexCode = colorsData.colors.filter(
     (color) => color.colorName === project.color
   );
+
   return project ? (
     <div
-      onMouseEnter={() => handleHoveredEvent(true)}
-      onMouseLeave={() => {
-        handleHoveredEvent(false);
-      }}
-      className={`p-1 pl-8 flex justify-between cursor-pointer hover:bg-[#ffefe5]`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="p-1 pl-8 flex justify-between cursor-pointer hover:bg-[#ffefe5]"
     >
       <Link to={`/${project.name}-${project.id}`}>
         <div className="flex gap-3 text-[15px] items-center">
@@ -53,7 +44,7 @@ const DropDown = ({ project }) => {
       <div className="relative flex items-center">
         {isHovered && (
           <EllipsisOutlined
-            onClick={handleElipseClicked}
+            onClick={() => setIsEllipsClicked(!isEllipsClicked)}
             className="rounded text-center hover:bg-gray-200"
             style={{
               width: "30px",
@@ -65,12 +56,7 @@ const DropDown = ({ project }) => {
           />
         )}
         {isEllipsClicked && (
-          <div
-            className="absolute right-0"
-            style={{
-              width: "100px",
-            }}
-          >
+          <div className="absolute right-0" style={{ width: "100px" }}>
             <DropDownMenu project={project} />
           </div>
         )}

@@ -9,20 +9,22 @@ import { useNavigate } from "react-router-dom";
 import sidebarImage from "../../assets/images/sidebar.png";
 import MyProject from "../project/MyProject";
 import Favorites from "./Favorites";
-import { ProjectsContext } from "../../contexts/ProjectsContext";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import AddNewTask from "../tasks/AddNewTask";
+import { useSelector } from "react-redux";
+
 const { Sider } = Layout;
 
 const SideBar = ({ expand, setExpand }) => {
   const navigate = useNavigate();
-  const { projects } = useContext(ProjectsContext);
+  const projects = useSelector((state) => state.projects.projects);
 
   const [isAddTaskClicked, setIsAddTaskClicked] = useState(false);
 
   const handleAddTaskClicked = (e) => {
     setIsAddTaskClicked(e);
   };
+
   const handleSliderClick = () => {
     setExpand(!expand);
     setIsAddTaskClicked(false);
@@ -91,7 +93,6 @@ const SideBar = ({ expand, setExpand }) => {
               values={{
                 handleAddTaskClicked,
                 splitParam: ["Inbox", inboxproject_id],
-                handleAddTask: () => {},
               }}
               style={{ padding: "10rem" }}
             />

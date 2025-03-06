@@ -1,14 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Form, Button, DatePicker, Select, Input, message } from "antd";
-import { ProjectsContext } from "../../contexts/ProjectsContext";
+import { useSelector, useDispatch } from "react-redux";
+import { updateTask, deleteTask, addTask } from "../../features/taskSlice";
 import { LoadingOutlined } from "@ant-design/icons";
-import { TasksContext } from "../../contexts/TasksContext";
 
 const UpdateTask = ({ values }) => {
   const { task, handleEditOnClick } = values;
-  const { projects } = useContext(ProjectsContext);
-  const { handleUpdateTask, handleDeleteTask, handleAddTask } =
-    useContext(TasksContext);
+  const projects = useSelector((state) => state.projects.projects);
+  const dispatch = useDispatch();
   const [selectedProject, setSelectedProject] = useState(task.project_id);
   const [loading, setLoading] = useState(false);
 
@@ -18,20 +17,18 @@ const UpdateTask = ({ values }) => {
 
     try {
       if (task.project_id !== selectedProject) {
-        const originalMessage = message.success;
-        message.success = () => {};
+        message.success("Moving task to a new project...");
 
-        await handleDeleteTask(task.id);
+        await dispatch(deleteTask(task.id));
 
-        await handleAddTask({
+        const newTask = {
           content: taskName,
           description: description || "",
           project_id: selectedProject,
-        });
+        };
+        await dispatch(addTask(newTask));
 
-        message.success = originalMessage;
-
-        message.success("Task moved to a new project successfully!");
+        message.success("Task moved successfully!");
       } else {
         const updatedTask = {
           id: task.id,
@@ -40,11 +37,15 @@ const UpdateTask = ({ values }) => {
           project_id: selectedProject,
         };
 
-        await handleUpdateTask(updatedTask);
+        await dispatch(
+          updateTask({ task_id: task.id, updatedTaskData: updatedTask })
+        );
+
+        message.success("Task updated successfully!");
       }
 
       handleEditOnClick(false);
-    } catch {
+    } catch (error) {
       message.error("Task update failed, please try again.");
     } finally {
       setLoading(false);
