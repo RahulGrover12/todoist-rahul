@@ -23,7 +23,6 @@ const Task = ({ values }) => {
 
   const deleteTaskHandler = async (e) => {
     setIsTaskChecked(e.target.checked);
-    console.log();
     setLoading(true);
     await dispatch(deleteTask(task.id));
     setLoading(false);

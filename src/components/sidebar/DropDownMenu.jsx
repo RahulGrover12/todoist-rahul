@@ -18,26 +18,21 @@ const DropDownMenu = ({ project }) => {
   );
 
   const handleToggleFavorite = () => {
-    console.log("Dispatching Favorite Toggle for Project:", project.id);
-
     if (!existingProject) {
-      console.error("Project not found in Redux state");
       return;
     }
-
     dispatch(
       updateProject({
         project_id: project.id,
         updatedProjectData: {
           is_favorite: !project.is_favorite,
-          name: existingProject.name, // Ensure name is sent
-          color: existingProject.color, // Ensure color is sent
+          name: existingProject.name,
+          color: existingProject.color,
         },
       })
     );
   };
 
-  // Update project details
   const updateProjectInTodoist = async (updatedValues) => {
     if (!project?.id) return;
     dispatch(
@@ -48,7 +43,6 @@ const DropDownMenu = ({ project }) => {
     );
   };
 
-  // Handle menu clicks
   const handleMenuClick = (e) => {
     setVisible(false);
 
@@ -74,7 +68,6 @@ const DropDownMenu = ({ project }) => {
     };
   }, []);
 
-  // Menu items
   const menuItems = [
     { key: "edit", icon: <EditOutlined />, label: <span>Edit</span> },
     {
